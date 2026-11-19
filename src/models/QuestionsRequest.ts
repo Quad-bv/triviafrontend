@@ -1,5 +1,5 @@
-import type {Difficulty} from "@/Model/Enum/Difficulty.ts";
-import type {QuestionType} from "@/Model/Enum/QuestionType.ts";
+import type {Difficulty} from "@/models/enums/Difficulty.ts";
+import type {QuestionType} from "@/models/enums/QuestionType.ts";
 
 export interface QuestionsRequest {
     amount: number;

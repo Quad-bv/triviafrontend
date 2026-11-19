@@ -18,8 +18,17 @@ import 'unfonts.css'
 import './styles/tailwind.css'
 import './styles/main.scss'
 
+// Services
+import {answersServiceKey, questionsServiceKey} from "@/services/ServiceKeys.ts";
+import QuestionsService from "@/services/QuestionsService.ts";
+import AnswersService from "@/services/AnswersService.ts";
+
 const app = createApp(App)
 
 registerPlugins(app)
+
+// Provide Services to the application
+app.provide(questionsServiceKey, new QuestionsService());
+app.provide(answersServiceKey, new AnswersService());
 
 app.mount('#app')
