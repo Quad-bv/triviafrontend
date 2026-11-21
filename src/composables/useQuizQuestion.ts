@@ -17,6 +17,7 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
     const localAnswers = ref<Answer[]>(
         options.answers.map(answer => ({
             ...answer,
+            guessed: false,
             correct: null,
         }))
     );
@@ -24,7 +25,6 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
     const selectedAnswer = ref<string | null>(null);
     const isChecking = ref(false);
     const attempts = ref(0);
-
 
     // Calculate quiz state
     const attemptLimit = computed(() =>
@@ -36,19 +36,7 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
         (attemptLimit.value > 0 && attempts.value >= attemptLimit.value)
     );
 
-    const answersWithColors = computed(() =>
-        localAnswers.value.map(answer => ({
-            ...answer,
-            color: getAnswerColor(answer),
-        }))
-    );
-
-    function getAnswerColor(answer: Answer) {
-        if (answer.correct === true) return 'green';
-        if (answer.correct === false) return 'red';
-
-        return undefined;
-    }
+    const answers = computed(() => localAnswers.value);
 
     function hasReachedAttemptLimit() {
         return attemptLimit.value > 0 &&
@@ -129,7 +117,7 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
         isChecking,
         attempts,
         attemptLimit,
-        answersWithColors,
+        answers,
         isFinished,
         submitAnswer,
     };

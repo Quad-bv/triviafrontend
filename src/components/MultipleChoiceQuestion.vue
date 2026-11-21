@@ -1,10 +1,6 @@
 
 <template>
   <v-card>
-    <v-card-title>
-      {{ props.question }}
-    </v-card-title>
-
     <v-card-text>
       <v-radio-group
           v-model="selectedAnswer"
@@ -30,8 +26,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useQuizQuestion } from '@/composables/useQuizQuestion.ts';
-import type { AnswerInput } from '@/models/Answer';
+import type { Answer, AnswerInput } from '@/models/Answer';
 
 const props = defineProps<{
   question: string;
@@ -47,7 +44,7 @@ const emit = defineEmits<{
 const {
   selectedAnswer,
   isChecking,
-  answersWithColors,
+  answers,
   isFinished,
   submitAnswer,
 } = useQuizQuestion({
@@ -56,6 +53,21 @@ const {
   verificationToken: props.verificationToken,
   maxAttempts: props.maxAttempts,
 });
+
+// Determine answer colors for presentation
+const answersWithColors = computed(() =>
+    answers.value.map(answer => ({
+      ...answer,
+      color: getAnswerColor(answer),
+    }))
+);
+
+function getAnswerColor(answer: Answer) {
+  if (answer.correct === true) return 'green';
+  if (answer.correct === false) return 'red';
+
+  return undefined;
+}
 
 const onAnswerSelected = async (answer: string | null) => {
   const correct = await submitAnswer(answer);

@@ -1,7 +1,7 @@
 import type {QuestionsRequest} from "@/models/QuestionsRequest.ts";
-import type {Question} from "@/models/Question.ts";
+import type {QuestionsResponse} from "@/models/QuestionsResponse.ts";
 
 
 export interface IQuestionsService {
-    getQuestions(request: QuestionsRequest): Promise<Question[]>;
+    getQuestions(request: QuestionsRequest): Promise<QuestionsResponse[]>;
 }
