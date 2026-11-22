@@ -4,7 +4,6 @@
         color="transparent"
         variant="flat"
         class="w-[60%] min-h-[40vh] mx-auto my-auto p-8"
-        rounded="xl"
         :question="question"
         category="Chemistry"
         :difficulty="Difficulty.HARD"
@@ -20,8 +19,8 @@
 </template>
 
 <script lang="ts" setup>
-import MultipleChoiceQuestion from "@/views/components/MultipleChoiceQuestion.vue";
-import QuizQuestionCard from "@/views/components/QuizQuestionCard.vue";
+import MultipleChoiceQuestion from "@/views/components/quiz/MultipleChoiceQuestion.vue";
+import QuizQuestionCard from "@/views/components/quiz/QuizQuestionCard.vue";
 import type { AnswerInput } from "@/models/Answer.ts";
 import { Difficulty } from "@/models/enums/Difficulty.ts";
 

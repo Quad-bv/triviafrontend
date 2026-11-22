@@ -20,23 +20,29 @@
 
   <v-card-actions>
     <v-spacer/>
-    <v-btn
-        color="primary"
-        size="large"
-        min-width="160"
+    <Button
         :disabled="!selectedAnswer || isFinished || isChecking"
         :loading="isChecking"
         @click="onAnswerSelected"
     >
       Submit answer
-    </v-btn>
+    </Button>
   </v-card-actions>
+  <v-alert
+      v-if="error"
+      type="error"
+      variant="tonal"
+      class="mb-4"
+  >
+    {{ error.message }}
+  </v-alert>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useQuizQuestion } from '@/composables/useQuizQuestion.ts';
 import type { Answer, AnswerInput } from '@/models/Answer.ts';
+import Button from "@/views/components/generics/Button.vue";
 
 const props = defineProps<{
   question: string;
@@ -54,6 +60,7 @@ const {
   isChecking,
   answers,
   isFinished,
+  error,
   submitAnswer,
 } = useQuizQuestion({
   question: props.question,

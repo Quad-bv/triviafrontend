@@ -25,6 +25,7 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
     const selectedAnswer = ref<string | null>(null);
     const isChecking = ref(false);
     const attempts = ref(0);
+    const error = ref<Error | null>(null);
 
     // Calculate quiz state
     const attemptLimit = computed(() =>
@@ -45,6 +46,8 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
 
     // Submit and process answers
     async function submitAnswer(answer: string | null): Promise<boolean | null> {
+        error.value = null;
+
         if (answer === null || isChecking.value || isFinished.value) {
             return null;
         }
@@ -73,9 +76,10 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
             }
 
             return response.correct;
-        } catch (error) {
-            console.error('Failed to check answer:', error);
+        } catch (err) {
+            setError(err, 'Failed to check answer.');
             return null;
+
         } finally {
             selectedAnswer.value = null;
             isChecking.value = false;
@@ -106,9 +110,19 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
                     break;
                 }
             }
-        } catch (error) {
-            console.error('Failed to reveal correct answer:', error);
+        } catch (err) {
+            setError(err, 'Failed to check answer.');
+            return null;
         }
+    }
+
+    // Sets the incoming error
+    function setError(err: unknown, message: string) {
+        console.error(message, err);
+
+        error.value = err instanceof Error
+            ? err
+            : new Error(message);
     }
 
     // Expose reactive state and public functions
@@ -119,6 +133,7 @@ export function useQuizQuestion(options: QuizAnswerOptions) {
         attemptLimit,
         answers,
         isFinished,
+        error,
         submitAnswer,
     };
 }

@@ -9,6 +9,8 @@ import { createApp } from 'vue'
 
 // Plugins
 import { registerPlugins } from '@/plugins'
+import { createPinia } from 'pinia';
+
 
 // Components
 import App from './App.vue'
@@ -24,6 +26,8 @@ import QuestionsService from "@/services/QuestionsService.ts";
 import AnswersService from "@/services/AnswersService.ts";
 
 const app = createApp(App)
+
+app.use(createPinia());
 
 registerPlugins(app)
 

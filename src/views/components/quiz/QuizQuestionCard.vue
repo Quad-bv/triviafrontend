@@ -1,4 +1,3 @@
-
 <template>
   <v-card class="space-y-4">
     <v-card-item>
@@ -40,8 +39,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Difficulty } from '@/models/enums/Difficulty.ts';
-import QuizProgressCircle from '@/views/components/QuizProgressCircle.vue';
-import QuizProgressBar from "@/views/components/QuizProgressBar.vue";
+import QuizProgressCircle from '@/views/components/quiz/QuizProgressCircle.vue';
+import QuizProgressBar from "@/views/components/quiz/QuizProgressBar.vue";
 
 const props = defineProps<{
   question: string;
