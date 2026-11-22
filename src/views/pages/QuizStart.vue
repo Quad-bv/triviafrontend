@@ -5,7 +5,7 @@
       class="w-[60%] min-h-[40vh] mx-auto my-auto p-8"
   >
     <v-card-item>
-      <v-card-title class="text-h4 mb-2">
+      <v-card-title>
         Ready to test your knowledge?
       </v-card-title>
 
@@ -33,16 +33,18 @@
 import QuizStartForm from '@/views/components/quiz/QuizStartForm.vue';
 import { useQuizStart } from '@/composables/useQuizStart';
 import type {QuizStartData} from "@/models/QuizStartData.ts";
-import {useRouter} from "vue-router";
+
+const emit = defineEmits<{
+  started: [];
+}>();
 
 const { loading, error, startQuiz } = useQuizStart();
-const router = useRouter();
 
 async function onStartQuiz(data: QuizStartData) {
   await startQuiz(data);
 
   if (!error.value) {
-    await router.push({ name: 'Quiz' });
+    emit('started');
   }
 }
 </script>

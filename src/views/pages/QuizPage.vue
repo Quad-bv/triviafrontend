@@ -1,38 +1,53 @@
 
 <template>
-    <QuizQuestionCard
-        color="transparent"
-        variant="flat"
-        class="w-[60%] min-h-[40vh] mx-auto my-auto p-8"
-        :question="question"
-        category="Chemistry"
-        :difficulty="Difficulty.HARD"
-        :question-number="3"
-        :total-questions="6"
-    >
-      <MultipleChoiceQuestion
-          :question="question"
-          :answers="answers"
-          :verification-token="verificationToken"
-      />
-    </QuizQuestionCard>
+  <QuizQuestionCard
+      v-if="currentQuestion"
+      color="transparent"
+      variant="flat"
+      class="w-[60%] min-h-[40vh] mx-auto my-auto p-8"
+      :question="currentQuestion.question"
+      :category="currentQuestion.category"
+      :difficulty="currentQuestion.difficulty"
+      :question-number="currentQuestionNumber"
+      :total-questions="questions.length"
+  >
+    <MultipleChoiceQuestion
+        :key="currentQuestionNumber"
+        :question="currentQuestion.question"
+        :answers="currentQuestion.answers"
+        :verification-token="currentQuestion.verificationToken"
+        :max-attempts="1"
+        @answered="onQuestionAnswered"
+    />
+  </QuizQuestionCard>
 </template>
 
-<script lang="ts" setup>
-import MultipleChoiceQuestion from "@/views/components/quiz/MultipleChoiceQuestion.vue";
-import QuizQuestionCard from "@/views/components/quiz/QuizQuestionCard.vue";
-import type { AnswerInput } from "@/models/Answer.ts";
-import { Difficulty } from "@/models/enums/Difficulty.ts";
+<script setup lang="ts">
+import MultipleChoiceQuestion from '@/views/components/quiz/MultipleChoiceQuestion.vue';
+import QuizQuestionCard from '@/views/components/quiz/QuizQuestionCard.vue';
 
-const question = "On the periodic table of elements, what is the symbol for Tin?";
+import { useQuizStore } from '@/composables/useQuizStore';
+import {useQuizFlow} from "@/composables/useQuizFlow.ts";
 
-const verificationToken =
-    "98a7f863a852b329af9c3fc1a2e062c44367482e9e1cbe5e9207a78b72083f70";
+const {
+  questions,
+  currentQuestion,
+  currentQuestionNumber,
+} = useQuizStore();
 
-const answers: AnswerInput[] = [
-  { text: "Ni" },
-  { text: "Sn" },
-  { text: "Au" },
-  { text: "Na" },
-];
+const emit = defineEmits<{
+  finished: [];
+}>();
+
+const { submitQuestionResult } = useQuizFlow();
+
+async function onQuestionAnswered(correct: boolean) {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const isQuizOver = submitQuestionResult(correct);
+
+  if (isQuizOver) {
+    emit('finished');
+  }
+}
 </script>

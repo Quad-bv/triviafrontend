@@ -86,7 +86,7 @@ function getAnswerColor(answer: Answer) {
 const onAnswerSelected = async () => {
   const correct = await submitAnswer(selectedAnswer.value);
 
-  if (correct !== null) {
+  if (correct !== null && isFinished.value) {
     emit('answered', correct);
   }
 };

@@ -1,14 +1,14 @@
 import { ref } from 'vue';
 
-import { useQuestionsService } from '@/composables/useQuestionsService';
-import { useQuizStore } from '@/stores/quiz';
+import { useQuestionsService } from '@/composables/services/useQuestionsService.ts';
+import { useQuizStore } from '@/composables/useQuizStore.ts';
 import { mapQuestions } from '@/mappers/QuestionMapper';
 
 import type { QuizStartData } from '@/models/QuizStartData';
 
 export function useQuizStart() {
     const questionsService = useQuestionsService();
-    const quizStore = useQuizStore();
+    const quiz = useQuizStore();
 
     const loading = ref<boolean>(false);
     const error = ref<Error | null>(null);
@@ -24,7 +24,7 @@ export function useQuizStart() {
                 ...(data.type && { type: data.type }),
             });
 
-            quizStore.questions = mapQuestions(response);
+            quiz.setQuestions(mapQuestions(response));
         } catch (err) {
             error.value = err instanceof Error
                 ? err

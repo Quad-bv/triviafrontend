@@ -1,5 +1,5 @@
 import { inject } from 'vue';
-import { answersServiceKey } from '@/services/ServiceKeys';
+import { answersServiceKey } from '@/services/ServiceKeys.ts';
 
 export function useAnswerService() {
     const service = inject(answersServiceKey);

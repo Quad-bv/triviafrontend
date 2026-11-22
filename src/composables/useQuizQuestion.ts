@@ -1,7 +1,7 @@
 
 import { computed, ref } from 'vue';
 import type { Answer, AnswerInput } from '@/models/Answer';
-import { useAnswerService } from '@/composables/useAnswerService';
+import { useAnswerService } from '@/composables/services/useAnswerService.ts';
 
 interface QuizAnswerOptions {
     question: string;
