@@ -15,6 +15,8 @@
     "@fontsource/roboto": "^5.2.10",
     "@fontsource/roboto-mono": "^5.2.8",
     "@mdi/font": "7.4.47",
+    "@tsparticles/engine": "^4.6.0",
+    "@tsparticles/slim": "^4.6.0",
     "vue": "^3.5.30",
     "vuetify": "^4.0.2"
   },

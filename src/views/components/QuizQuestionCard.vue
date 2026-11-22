@@ -1,41 +1,47 @@
 
 <template>
-  <v-card>
+  <v-card class="space-y-4">
     <v-card-item>
-      <v-card-subtitle>
+      <v-card-subtitle class="mb-2">
         {{ category }}
       </v-card-subtitle>
 
       <template #append>
-        <QuizProgress
+        <QuizProgressCircle
             v-if="questionNumber !== undefined && totalQuestions !== undefined"
             :question-number="questionNumber"
             :total-questions="totalQuestions"
         />
       </template>
 
-      <v-card-title>
+      <v-card-title class="text-wrap mb-2">
         {{ question }}
       </v-card-title>
 
       <div>
-        <v-chip
-            :color="difficultyColor"
-            size="small"
-        >
+        <v-chip :color="difficultyColor" size="small">
           {{ difficulty }}
         </v-chip>
       </div>
     </v-card-item>
 
-    <slot />
+    <QuizProgressBar
+        v-if="questionNumber !== undefined && totalQuestions !== undefined"
+        :question-number="questionNumber"
+        :total-questions="totalQuestions"
+    />
+
+    <div>
+      <slot />
+    </div>
   </v-card>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Difficulty } from '@/models/enums/Difficulty.ts';
-import QuizProgress from '@/components/QuizProgress.vue';
+import QuizProgressCircle from '@/views/components/QuizProgressCircle.vue';
+import QuizProgressBar from "@/views/components/QuizProgressBar.vue";
 
 const props = defineProps<{
   question: string;
