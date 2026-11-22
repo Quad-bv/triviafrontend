@@ -5,7 +5,7 @@
  */
 
 @use 'vuetify/settings' with (
-  $color-pack: false,
+  $color-pack: true,
   $utilities: false,
 
   $heading-font-family: var(--font-heading),
