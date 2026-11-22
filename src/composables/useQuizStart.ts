@@ -1,13 +1,15 @@
 import { ref } from 'vue';
 
 import { useQuestionsService } from '@/composables/useQuestionsService';
+import { useQuizStore } from '@/stores/quiz';
+import { mapQuestions } from '@/mappers/QuestionMapper';
+
 import type { QuizStartData } from '@/models/QuizStartData';
-import type { QuestionsResponse } from '@/models/QuestionsResponse';
 
 export function useQuizStart() {
     const questionsService = useQuestionsService();
+    const quizStore = useQuizStore();
 
-    const questions = ref<QuestionsResponse[]>([]);
     const loading = ref<boolean>(false);
     const error = ref<Error | null>(null);
 
@@ -16,11 +18,13 @@ export function useQuizStart() {
         error.value = null;
 
         try {
-            questions.value = await questionsService.getQuestions({
+            const response = await questionsService.getQuestions({
                 amount: data.amount,
                 ...(data.difficulty && { difficulty: data.difficulty }),
                 ...(data.type && { type: data.type }),
             });
+
+            quizStore.questions = mapQuestions(response);
         } catch (err) {
             error.value = err instanceof Error
                 ? err
@@ -31,7 +35,6 @@ export function useQuizStart() {
     }
 
     return {
-        questions,
         loading,
         error,
         startQuiz,

@@ -16,7 +16,7 @@
 
     <QuizStartForm
         :loading="loading"
-        @start="startQuiz"
+        @start="onStartQuiz"
     />
 
     <v-alert
@@ -32,6 +32,17 @@
 <script setup lang="ts">
 import QuizStartForm from '@/views/components/quiz/QuizStartForm.vue';
 import { useQuizStart } from '@/composables/useQuizStart';
+import type {QuizStartData} from "@/models/QuizStartData.ts";
+import {useRouter} from "vue-router";
 
-const { questions, loading, error, startQuiz } = useQuizStart();
+const { loading, error, startQuiz } = useQuizStart();
+const router = useRouter();
+
+async function onStartQuiz(data: QuizStartData) {
+  await startQuiz(data);
+
+  if (!error.value) {
+    await router.push({ name: 'Quiz' });
+  }
+}
 </script>
