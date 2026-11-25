@@ -7,8 +7,14 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-# Copy application source
+# Copy application source (includes .env.production)
 COPY . .
+
+# Vite inlines VITE_* variables at BUILD time, so they must be known here.
+# Default: values come from .env.production.
+# Optional override: --build-arg VITE_API_BASE_URL=https://api.example.com
+ARG VITE_API_BASE_URL
+ARG VITE_API_PATH
 
 # Build production application
 RUN npm run build

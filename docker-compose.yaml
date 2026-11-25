@@ -3,7 +3,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      # Key-only args are taken from your shell / a compose env file when set.
+      # When not set, the Dockerfile falls back to .env.production.
+      args:
+        - VITE_API_BASE_URL
+        - VITE_API_PATH
     container_name: quiz-app
     ports:
-      - "8080:80"
+      - "${FRONTEND_PORT:-3000}:80"
     restart: unless-stopped
