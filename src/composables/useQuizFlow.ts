@@ -1,22 +1,25 @@
-import { useQuizStore } from '@/composables/useQuizStore';
+import { useQuizStore } from '@/composables/useQuizStore'
+import { isLastQuestion } from '@/utils/QuizRules.ts'
 
-export function useQuizFlow() {
-    const quiz = useQuizStore();
+export function useQuizFlow () {
+  const quiz = useQuizStore()
 
-    function completeQuestion(correct: boolean): boolean {
-        quiz.setQuestionResult(correct);
+  function completeQuestion (correct: boolean): boolean {
+    quiz.setQuestionResult(correct)
 
-        const isQuizOver =
-            quiz.currentQuestionNumber.value === quiz.questions.value.length;
+    const isQuizOver = isLastQuestion(
+      quiz.currentQuestionNumber,
+      quiz.questions.length,
+    )
 
-        if (!isQuizOver) {
-            quiz.nextQuestion();
-        }
-
-        return isQuizOver;
+    if (!isQuizOver) {
+      quiz.nextQuestion()
     }
 
-    return {
-        submitQuestionResult: completeQuestion,
-    };
+    return isQuizOver
+  }
+
+  return {
+    completeQuestion,
+  }
 }

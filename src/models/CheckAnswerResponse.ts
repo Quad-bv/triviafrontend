@@ -1,3 +1,3 @@
 export interface CheckAnswerResponse {
-    correct: boolean;
+  correct: boolean
 }

@@ -1,8 +1,8 @@
 <template>
   <v-card
-      class="w-[60%] min-h-[40vh] mx-auto my-auto p-8 text-center"
-      color="transparent"
-      variant="flat"
+    class="w-[60%] min-h-[40vh] mx-auto my-auto p-8 text-center"
+    color="transparent"
+    variant="flat"
   >
     <v-card-title>
       Quiz Results
@@ -17,18 +17,20 @@
         {{ scorePercentage }}%
       </v-card-title>
 
-
       <v-card-subtitle>Total</v-card-subtitle>
+
       <v-card-title>
         {{ totalQuestions }}
       </v-card-title>
 
       <v-card-subtitle>Correct</v-card-subtitle>
+
       <v-card-title>
         {{ correctAnswers }}
       </v-card-title>
 
       <v-card-subtitle>Incorrect</v-card-subtitle>
+
       <v-card-title>
         {{ incorrectAnswers }}
       </v-card-title>
@@ -43,17 +45,17 @@
 </template>
 
 <script lang="ts" setup>
-import {useQuizResults} from '@/composables/useQuizResults';
-import Button from "@/views/components/generics/Button.vue";
+  import { useQuizResult } from '@/composables/useQuizResult.ts'
+  import Button from '@/views/components/generics/Button.vue'
 
-const emit = defineEmits<{
-  restart: [];
-}>();
+  const emit = defineEmits<{
+    restart: []
+  }>()
 
-const {
-  totalQuestions,
-  correctAnswers,
-  incorrectAnswers,
-  scorePercentage,
-} = useQuizResults();
+  const {
+    totalQuestions,
+    correctAnswers,
+    incorrectAnswers,
+    scorePercentage,
+  } = useQuizResult()
 </script>

@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ParticlesBackground > Rendering > matches the snapshot 1`] = `"<div id="particles-background" aria-hidden="true" class="fixed inset-0 z-0"></div>"`;
+
+exports[`ParticlesBackground > matches snapshot 1`] = `"<div id="quiz-particles" aria-hidden="true" class="fixed inset-0 z-0"></div>"`;
+
+exports[`ParticlesBackground > renders the particle background correctly 1`] = `"<div id="particles-background" aria-hidden="true" class="fixed inset-0 z-0"></div>"`;

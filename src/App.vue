@@ -5,6 +5,6 @@
   </v-app>
 </template>
 
-<script setup lang="ts">
-import ParticlesBackground from "@/views/components/backgrounds/ParticlesBackground.vue";
+<script lang="ts" setup>
+  import ParticlesBackground from '@/views/components/backgrounds/ParticlesBackground.vue'
 </script>

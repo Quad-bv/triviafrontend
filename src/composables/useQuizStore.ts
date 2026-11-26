@@ -1,60 +1,47 @@
-import { computed } from 'vue';
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import type { Question } from '@/models/Question'
 
-import type { Question } from '@/models/Question.ts';
+import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
 
-// Private Pinia store
-const quizStore = defineStore('quiz', () => {
-    const questions = ref<Question[]>([]);
-    const currentQuestionIndex = ref(0);
+export const useQuizStore = defineStore('quiz', () => {
+  const questions = ref<Question[]>([])
+  const currentQuestionIndex = ref(0)
 
-    return {
-        questions,
-        currentQuestionIndex,
-    };
-});
+  const currentQuestion = computed(() =>
+    questions.value[currentQuestionIndex.value] ?? null,
+  )
 
-export function useQuizStore() {
-    const quiz = quizStore();
+  const currentQuestionNumber = computed(() =>
+    currentQuestionIndex.value + 1,
+  )
 
-    // State
-    const questions = computed(() => quiz.questions);
+  function setQuestions (newQuestions: Question[]) {
+    questions.value = newQuestions
+    currentQuestionIndex.value = 0
+  }
 
-    // Computed values
-    const currentQuestion = computed(() =>
-        quiz.questions[quiz.currentQuestionIndex] ?? null
-    );
-
-    const currentQuestionNumber = computed(() =>
-        quiz.currentQuestionIndex + 1
-    );
-
-    // Actions
-    function setQuestions(newQuestions: Question[]) {
-        quiz.questions = newQuestions;
-        quiz.currentQuestionIndex = 0;
+  function setQuestionResult (correct: boolean) {
+    if (!currentQuestion.value) {
+      return
     }
 
-    function setQuestionResult(correct: boolean) {
-        if (!currentQuestion.value) return;
+    currentQuestion.value.correct = correct
+    currentQuestion.value.answered = true
+  }
 
-        currentQuestion.value.correct = correct;
-        currentQuestion.value.answered = true;
+  function nextQuestion () {
+    if (currentQuestionIndex.value < questions.value.length - 1) {
+      currentQuestionIndex.value++
     }
+  }
 
-    function nextQuestion() {
-        if (quiz.currentQuestionIndex < quiz.questions.length - 1) {
-            quiz.currentQuestionIndex++;
-        }
-    }
-
-    return {
-        questions,
-        currentQuestion,
-        currentQuestionNumber,
-        setQuestions,
-        setQuestionResult,
-        nextQuestion,
-    };
-}
+  return {
+    questions,
+    currentQuestionIndex,
+    currentQuestion,
+    currentQuestionNumber,
+    setQuestions,
+    setQuestionResult,
+    nextQuestion,
+  }
+})

@@ -5,7 +5,10 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "test": "vitest",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -24,11 +27,16 @@
     "vuetify": "^4.0.2"
   },
   "devDependencies": {
+    "@pinia/testing": "^2.0.2",
     "@tailwindcss/vite": "^4.2.1",
     "@tsconfig/node22": "^22.0.5",
     "@types/node": "^24.12.0",
     "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/test-utils": "^2.6.0",
     "@vue/tsconfig": "^0.9.0",
+    "eslint": "^10.15.0",
+    "eslint-config-vuetify": "^4.7.2",
+    "jsdom": "^26.1.0",
     "npm-run-all2": "^8.0.4",
     "sass-embedded": "^1.98.0",
     "tailwindcss": "^4.2.1",

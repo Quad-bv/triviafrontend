@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`QuizQuestionCard > Rendering > matches the snapshot 1`] = `
+"<div class="v-card space-y-4">
+  <div class="v-card-item">
+    <div class="v-card-subtitle mb-2">Geography</div>
+    <div class="v-card-title text-wrap mb-2">What is the capital of France?</div>
+    <div><span class="v-chip" data-color="green" data-size="small">EASY</span></div>
+    <div class="quiz-progress-circle" data-question-number="2" data-total-questions="10"></div>
+  </div>
+  <div class="quiz-progress-bar" data-question-number="2" data-total-questions="10"></div>
+  <div>
+    <p>Question content</p>
+  </div>
+</div>"
+`;
+
+exports[`QuizQuestionCard > matches snapshot 1`] = `
+"<div class="space-y-4">
+  <div>
+    <div class="mb-2">General Knowledge</div>
+    <div class="text-wrap mb-2">What is the correct answer?</div>
+    <div>
+      <div>EASY</div>
+    </div>
+    <div class="progress-circle-stub"></div>
+  </div>
+  <div class="progress-bar-stub"></div>
+  <div>Question content</div>
+</div>"
+`;
+
+exports[`QuizQuestionCard > renders correctly 1`] = `
+"<div class="v-card space-y-4">
+  <div class="v-card-item">
+    <div class="v-card-subtitle mb-2">Geography</div>
+    <div class="v-card-title text-wrap mb-2">What is the capital of France?</div>
+    <div><span class="v-chip" data-color="green" data-size="small">EASY</span></div>
+    <div class="quiz-progress-circle" data-question-number="2" data-total-questions="10"></div>
+  </div>
+  <div class="quiz-progress-bar" data-question-number="2" data-total-questions="10"></div>
+  <div>
+    <p>Question content</p>
+  </div>
+</div>"
+`;

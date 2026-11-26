@@ -1,35 +1,34 @@
-
 <template>
   <v-btn
-      color="primary"
-      size="large"
-      :min-width="minWidth"
-      :disabled="disabled"
-      :loading="loading"
-      :type="type"
-      :block="block"
-      @click="$emit('click')"
+    :block="block"
+    color="primary"
+    :disabled="disabled"
+    :loading="loading"
+    :min-width="minWidth"
+    size="large"
+    :type="type"
+    @click="$emit('click')"
   >
     <slot />
   </v-btn>
 </template>
 
-<script setup lang="ts">
-withDefaults(defineProps<{
-  disabled?: boolean;
-  loading?: boolean;
-  block?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-  minWidth?: string | number;
-}>(), {
-  disabled: false,
-  loading: false,
-  block: false,
-  type: 'button',
-  minWidth: 160,
-});
+<script lang="ts" setup>
+  withDefaults(defineProps<{
+    disabled?: boolean
+    loading?: boolean
+    block?: boolean
+    type?: 'button' | 'submit' | 'reset'
+    minWidth?: string | number
+  }>(), {
+    disabled: false,
+    loading: false,
+    block: false,
+    type: 'button',
+    minWidth: 160,
+  })
 
-defineEmits<{
-  click: [];
-}>();
+  defineEmits<{
+    click: []
+  }>()
 </script>

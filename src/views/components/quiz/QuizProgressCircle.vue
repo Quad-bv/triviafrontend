@@ -1,32 +1,28 @@
 <template>
   <v-progress-circular
-      :model-value="(questionNumber / totalQuestions) * 100"
-      :size="75"
-      :width="8"
-      :color="progressColor"
-      reveal
-      rounded
+    :color="progressColor"
+    :model-value="progress"
+    reveal
+    rounded
+    :size="75"
+    :width="8"
   >
     {{ questionNumber }}/{{ totalQuestions }}
   </v-progress-circular>
 </template>
 
-<script setup lang="ts">
-import { computed } from 'vue';
+<script lang="ts" setup>
+  import { computed } from 'vue'
+  import { getProgressColor, getProgressPercentage } from '@/utils/Progress.ts'
 
-const props = defineProps<{
-  questionNumber: number;
-  totalQuestions: number;
-}>();
+  const props = defineProps<{
+    questionNumber: number
+    totalQuestions: number
+  }>()
 
-const progressColor = computed(() => {
-  const progress =
-      (props.questionNumber / props.totalQuestions) * 100;
+  const progress = computed(() =>
+    getProgressPercentage(props.questionNumber, props.totalQuestions),
+  )
 
-  if (progress <= 33) return 'green';
-  if (progress <= 66) return 'yellow';
-  if (progress < 100) return 'orange';
-
-  return 'red';
-});
+  const progressColor = computed(() => getProgressColor(progress.value))
 </script>

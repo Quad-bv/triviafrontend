@@ -1,12 +1,12 @@
-import { inject } from 'vue';
-import { answersServiceKey } from '@/services/ServiceKeys.ts';
+import { inject } from 'vue'
+import { answersServiceKey } from '@/services/ServiceKeys.ts'
 
-export function useAnswerService() {
-    const service = inject(answersServiceKey);
+export function useAnswerService () {
+  const service = inject(answersServiceKey)
 
-    if (!service) {
-        throw new Error('AnswerService was not provided');
-    }
+  if (!service) {
+    throw new Error('AnswerService was not provided')
+  }
 
-    return service;
+  return service
 }

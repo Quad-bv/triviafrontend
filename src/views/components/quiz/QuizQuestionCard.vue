@@ -7,9 +7,9 @@
 
       <template #append>
         <QuizProgressCircle
-            v-if="questionNumber !== undefined && totalQuestions !== undefined"
-            :question-number="questionNumber"
-            :total-questions="totalQuestions"
+          v-if="questionNumber !== undefined && totalQuestions !== undefined"
+          :question-number="questionNumber"
+          :total-questions="totalQuestions"
         />
       </template>
 
@@ -25,9 +25,9 @@
     </v-card-item>
 
     <QuizProgressBar
-        v-if="questionNumber !== undefined && totalQuestions !== undefined"
-        :question-number="questionNumber"
-        :total-questions="totalQuestions"
+      v-if="questionNumber !== undefined && totalQuestions !== undefined"
+      :question-number="questionNumber"
+      :total-questions="totalQuestions"
     />
 
     <div>
@@ -36,28 +36,34 @@
   </v-card>
 </template>
 
-<script setup lang="ts">
-import { computed } from 'vue';
-import { Difficulty } from '@/models/enums/Difficulty.ts';
-import QuizProgressCircle from '@/views/components/quiz/QuizProgressCircle.vue';
-import QuizProgressBar from "@/views/components/quiz/QuizProgressBar.vue";
+<script lang="ts" setup>
+  import { computed } from 'vue'
+  import { Difficulty } from '@/models/enums/Difficulty.ts'
+  import QuizProgressBar from '@/views/components/quiz/QuizProgressBar.vue'
+  import QuizProgressCircle from '@/views/components/quiz/QuizProgressCircle.vue'
 
-const props = defineProps<{
-  question: string;
-  category: string;
-  difficulty: Difficulty;
-  questionNumber?: number;
-  totalQuestions?: number;
-}>();
+  const props = defineProps<{
+    question: string
+    category: string
+    difficulty: Difficulty
+    questionNumber?: number
+    totalQuestions?: number
+  }>()
 
-const difficultyColor = computed(() => {
-  switch (props.difficulty) {
-    case Difficulty.EASY:
-      return 'green';
-    case Difficulty.MEDIUM:
-      return 'yellow';
-    case Difficulty.HARD:
-      return 'red';
-  }
-});
+  const difficultyColor = computed(() => {
+    switch (props.difficulty) {
+      case Difficulty.EASY: {
+        return 'green'
+      }
+      case Difficulty.MEDIUM: {
+        return 'yellow'
+      }
+      case Difficulty.HARD: {
+        return 'red'
+      }
+      default: {
+        return 'grey'
+      }
+    }
+  })
 </script>

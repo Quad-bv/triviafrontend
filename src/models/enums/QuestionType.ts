@@ -1,4 +1,4 @@
 export enum QuestionType {
-    MULTIPLE = 'MULTIPLE',
-    BOOLEAN = 'BOOLEAN',
+  MULTIPLE = 'MULTIPLE',
+  BOOLEAN = 'BOOLEAN',
 }

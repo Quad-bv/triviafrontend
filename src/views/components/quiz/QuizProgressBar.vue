@@ -1,29 +1,24 @@
 <template>
   <v-progress-linear
-      :model-value="progress"
-      :color="progressColor"
-      height="6"
-      rounded
+    :color="progressColor"
+    height="6"
+    :model-value="progress"
+    rounded
   />
 </template>
 
-<script setup lang="ts">
-import { computed } from 'vue';
+<script lang="ts" setup>
+  import { computed } from 'vue'
+  import { getProgressColor, getProgressPercentage } from '@/utils/Progress.ts'
 
-const props = defineProps<{
-  questionNumber: number;
-  totalQuestions: number;
-}>();
+  const props = defineProps<{
+    questionNumber: number
+    totalQuestions: number
+  }>()
 
-const progress = computed(
-    () => (props.questionNumber / props.totalQuestions) * 100
-);
+  const progress = computed(() =>
+    getProgressPercentage(props.questionNumber, props.totalQuestions),
+  )
 
-const progressColor = computed(() => {
-  if (progress.value <= 33) return 'green';
-  if (progress.value <= 66) return 'yellow';
-  if (progress.value < 100) return 'orange';
-
-  return 'red';
-});
+  const progressColor = computed(() => getProgressColor(progress.value))
 </script>

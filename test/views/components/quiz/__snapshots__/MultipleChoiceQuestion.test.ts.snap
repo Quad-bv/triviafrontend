@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MultipleChoiceQuestion > Rendering > matches the snapshot 1`] = `
+"<div><label><input type="radio" name="answer" value="Paris"><span class="">Paris</span></label><label><input type="radio" name="answer" value="London"><span class="">London</span></label><label><input type="radio" name="answer" value="Rome"><span class="">Rome</span></label></div>
+<div><span></span><button disabled=""> Submit answer </button></div>
+<!--v-if-->"
+`;
+
+exports[`MultipleChoiceQuestion > matches the snapshot 1`] = `
+"<div><label><input type="radio" name="answer" value="Paris"><span class="">Paris</span></label><label><input type="radio" name="answer" value="London"><span class="">London</span></label><label><input type="radio" name="answer" value="Rome"><span class="">Rome</span></label></div>
+<div><span></span><button disabled=""> Submit answer </button></div>
+<!--v-if-->"
+`;
+
+exports[`MultipleChoiceQuestion > renders correctly 1`] = `
+"<div><label><input type="radio" name="answer" value="Paris"><span class="">Paris</span></label><label><input type="radio" name="answer" value="London"><span class="">London</span></label><label><input type="radio" name="answer" value="Rome"><span class="">Rome</span></label></div>
+<div><span></span><button disabled=""> Submit answer </button></div>
+<!--v-if-->"
+`;

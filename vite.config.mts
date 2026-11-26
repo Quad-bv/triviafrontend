@@ -2,11 +2,11 @@ import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import Vue from '@vitejs/plugin-vue'
 import Fonts from 'unplugin-fonts/vite'
-import { defineConfig } from 'vite'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+import { defineConfig } from 'vitest/config'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     tailwindcss(),
     Vue({
@@ -14,7 +14,7 @@ export default defineConfig({
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify({
-      autoImport: true,
+      autoImport: mode !== 'test',
       styles: {
         configFile: 'src/styles/settings.scss',
       },
@@ -53,4 +53,12 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-})
+  test: {
+    environment: 'jsdom',
+    server: {
+      deps: {
+        inline: ['vuetify'],
+      },
+    },
+  },
+}))

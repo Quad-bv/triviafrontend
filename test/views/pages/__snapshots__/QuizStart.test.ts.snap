@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`QuizStart > matches snapshot 1`] = `
+"<div class="w-[60%] min-h-[40vh] mx-auto my-auto p-8" color="transparent" variant="flat">
+  <div>
+    <div> Ready to test your knowledge? </div>
+    <div class="text-wrap"> Customize your quiz, choose your difficulty and get started! </div>
+  </div><button>Start quiz</button>
+  <!--v-if-->
+</div>"
+`;

@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button > Rendering > matches the snapshot 1`] = `"<button type="button">Continue</button>"`;
+
+exports[`Button > renders correctly 1`] = `"<button type="button">Continue</button>"`;

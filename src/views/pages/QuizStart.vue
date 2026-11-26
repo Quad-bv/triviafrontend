@@ -1,8 +1,8 @@
 <template>
   <v-card
-      color="transparent"
-      variant="flat"
-      class="w-[60%] min-h-[40vh] mx-auto my-auto p-8"
+    class="w-[60%] min-h-[40vh] mx-auto my-auto p-8"
+    color="transparent"
+    variant="flat"
   >
     <v-card-item>
       <v-card-title>
@@ -15,36 +15,36 @@
     </v-card-item>
 
     <QuizStartForm
-        :loading="loading"
-        @start="onStartQuiz"
+      :loading="loading"
+      @start="onStartQuiz"
     />
 
     <v-alert
-        v-if="error"
-        type="error"
-        variant="tonal"
+      v-if="error"
+      type="error"
+      variant="tonal"
     >
       {{ error.message }}
     </v-alert>
   </v-card>
 </template>
 
-<script setup lang="ts">
-import QuizStartForm from '@/views/components/quiz/QuizStartForm.vue';
-import { useQuizStart } from '@/composables/useQuizStart';
-import type {QuizStartData} from "@/models/QuizStartData.ts";
+<script lang="ts" setup>
+  import type { QuizStartData } from '@/models/QuizStartData.ts'
+  import { useQuizStart } from '@/composables/useQuizStart'
+  import QuizStartForm from '@/views/components/quiz/QuizStartForm.vue'
 
-const emit = defineEmits<{
-  started: [];
-}>();
+  const emit = defineEmits<{
+    started: []
+  }>()
 
-const { loading, error, startQuiz } = useQuizStart();
+  const { loading, error, startQuiz } = useQuizStart()
 
-async function onStartQuiz(data: QuizStartData) {
-  await startQuiz(data);
+  async function onStartQuiz (data: QuizStartData) {
+    await startQuiz(data)
 
-  if (!error.value) {
-    emit('started');
+    if (!error.value) {
+      emit('started')
+    }
   }
-}
 </script>

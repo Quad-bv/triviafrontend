@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`QuizPage > matches snapshot 1`] = `
+"<div class="w-[60%] min-h-[40vh] mx-auto my-auto p-8" color="transparent" variant="flat">
+  <div></div>
+</div>"
+`;

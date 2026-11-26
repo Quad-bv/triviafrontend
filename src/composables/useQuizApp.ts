@@ -1,25 +1,25 @@
-import { ref } from 'vue';
-import { QuizState } from '@/models/enums/QuizState';
+import { ref } from 'vue'
+import { QuizState } from '@/models/enums/QuizState'
 
-export function useQuizApp() {
-    const state = ref<QuizState>(QuizState.Start);
+export function useQuizApp () {
+  const state = ref<QuizState>(QuizState.Start)
 
-    function startQuiz() {
-        state.value = QuizState.Quiz;
-    }
+  function startQuiz () {
+    state.value = QuizState.Quiz
+  }
 
-    function showResults() {
-        state.value = QuizState.Results;
-    }
+  function showResults () {
+    state.value = QuizState.Results
+  }
 
-    function resetQuiz() {
-        state.value = QuizState.Start;
-    }
+  function resetQuiz () {
+    state.value = QuizState.Start
+  }
 
-    return {
-        state,
-        startQuiz,
-        showResults,
-        resetQuiz,
-    };
+  return {
+    state,
+    startQuiz,
+    showResults,
+    resetQuiz,
+  }
 }

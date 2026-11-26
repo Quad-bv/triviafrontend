@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`QuizProgress > matches snapshot 1`] = `"<div class="progress-linear-stub"></div>"`;
+
+exports[`QuizProgressBar > Rendering > matches the snapshot 1`] = `"<div></div>"`;
+
+exports[`QuizProgressBar > matches snapshot 1`] = `"<div class="progress-linear-stub"></div>"`;

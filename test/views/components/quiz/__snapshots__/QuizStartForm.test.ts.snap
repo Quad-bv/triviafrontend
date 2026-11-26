@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`QuizStartForm > Rendering > matches the snapshot 1`] = `
+"<form>
+  <div><input type="number" aria-label="Number of questions" min="1" max="50" step="1" modelmodifiers="[object Object]" value="10"><label>Difficulty<select aria-label="Difficulty" value="any">
+        <option value="any">Any</option>
+        <option value="EASY">Easy</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="HARD">Hard</option>
+      </select></label><label>Question type<select aria-label="Question type" value="random">
+        <option value="random">Random</option>
+        <option value="MULTIPLE">Multiple choice</option>
+        <option value="BOOLEAN">True / False</option>
+      </select></label>
+    <div justify="end"><button type="submit"> Start quiz </button></div>
+  </div>
+</form>"
+`;
