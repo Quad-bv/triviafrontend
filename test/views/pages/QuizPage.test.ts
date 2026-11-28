@@ -1,6 +1,6 @@
 import type { Question } from '../../../src/models/Question'
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, h, ref } from 'vue'
 import QuizPage from '../../../src/views/pages/QuizPage.vue'
 
@@ -10,9 +10,9 @@ const currentQuestion = ref<Question | null>(null)
 const currentQuestionNumber = ref(1)
 
 // Mock functions
-const submitQuestionResult = vi.fn()
+const completeQuestion = vi.fn()
 
-vi.mock('@/composables/useQuizStore', () => ({
+vi.mock('../../../src/composables/useQuizStore', () => ({
   useQuizStore: () => ({
     questions,
     currentQuestion,
@@ -20,9 +20,9 @@ vi.mock('@/composables/useQuizStore', () => ({
   }),
 }))
 
-vi.mock('@/composables/useQuizFlow', () => ({
+vi.mock('../../../src/composables/useQuizFlow', () => ({
   useQuizFlow: () => ({
-    submitQuestionResult,
+    completeQuestion,
   }),
 }))
 
@@ -72,14 +72,13 @@ describe('QuizPage', () => {
   } as unknown as Question
 
   beforeEach(() => {
-    // Arrange
     vi.clearAllMocks()
 
     questions.value = [question]
     currentQuestion.value = question
     currentQuestionNumber.value = 1
 
-    submitQuestionResult.mockReturnValue(true)
+    completeQuestion.mockReturnValue(true)
 
     wrapper = mount(QuizPage, {
       global: {
@@ -91,20 +90,18 @@ describe('QuizPage', () => {
     })
   })
 
-  it('matches snapshot', () => {
-    // Act
-    const result = wrapper.html()
+  afterEach(() => {
+    wrapper.unmount()
+  })
 
-    // Assert
-    expect(result).toMatchSnapshot()
+  it('matches snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   describe('Rendering', () => {
     it('renders question card', () => {
-      // Act
       const result = wrapper.findComponent(QuizQuestionCardStub)
 
-      // Assert
       expect(result.exists()).toBe(true)
       expect(result.props('question')).toBe(question.question)
       expect(result.props('category')).toBe(question.category)
@@ -114,10 +111,8 @@ describe('QuizPage', () => {
     })
 
     it('renders multiple choice question', () => {
-      // Act
       const result = wrapper.findComponent(MultipleChoiceQuestionStub)
 
-      // Assert
       expect(result.exists()).toBe(true)
       expect(result.props('question')).toBe(question.question)
       expect(result.props('answers')).toEqual(question.answers)
@@ -126,62 +121,49 @@ describe('QuizPage', () => {
     })
 
     it('does not render question card when there is no current question', async () => {
-      // Arrange
       currentQuestion.value = null
       await wrapper.vm.$nextTick()
 
-      // Act
       const result = wrapper.findComponent(QuizQuestionCardStub)
 
-      // Assert
       expect(result.exists()).toBe(false)
     })
   })
 
   describe('Question submission', () => {
     it('submits the question result after the delay', async () => {
-      // Arrange
-      submitQuestionResult.mockReturnValue(false)
+      completeQuestion.mockReturnValue(false)
 
-      // Act
       wrapper.findComponent(MultipleChoiceQuestionStub).vm.$emit('answered', true)
 
-      // Assert
-      expect(submitQuestionResult).not.toHaveBeenCalled()
+      expect(completeQuestion).not.toHaveBeenCalled()
 
       // Wait for the component's one-second delay
       await new Promise(resolve => setTimeout(resolve, 1100))
       await flushPromises()
 
-      // Assert
-      expect(submitQuestionResult).toHaveBeenCalledWith(true)
+      expect(completeQuestion).toHaveBeenCalledWith(true)
     })
 
     it('emits finished when the quiz is over', async () => {
-      // Arrange
-      submitQuestionResult.mockReturnValue(true)
+      completeQuestion.mockReturnValue(true)
 
-      // Act
       wrapper.findComponent(MultipleChoiceQuestionStub).vm.$emit('answered', true)
 
       await new Promise(resolve => setTimeout(resolve, 1100))
       await flushPromises()
 
-      // Assert
       expect(wrapper.emitted('finished')).toHaveLength(1)
     })
 
     it('does not emit finished when the quiz is not over', async () => {
-      // Arrange
-      submitQuestionResult.mockReturnValue(false)
+      completeQuestion.mockReturnValue(false)
 
-      // Act
       wrapper.findComponent(MultipleChoiceQuestionStub).vm.$emit('answered', false)
 
       await new Promise(resolve => setTimeout(resolve, 1100))
       await flushPromises()
 
-      // Assert
       expect(wrapper.emitted('finished')).toBeUndefined()
     })
   })

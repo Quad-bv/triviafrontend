@@ -16,3 +16,20 @@ exports[`QuizResults > matches snapshot 1`] = `
   <div class="justify-center"><button> Play Again </button></div>
 </div>"
 `;
+
+exports[`QuizResults > matches the snapshot 1`] = `
+"<div class="w-[60%] min-h-[40vh] mx-auto my-auto p-8 text-center" color="transparent" variant="flat">
+  <div> Quiz Results </div>
+  <div>
+    <div> Your final score </div>
+    <div>70% </div>
+    <div>Total</div>
+    <div>10</div>
+    <div>Correct</div>
+    <div>7</div>
+    <div>Incorrect</div>
+    <div>3</div>
+  </div>
+  <div class="justify-center"><button> Play Again </button></div>
+</div>"
+`;

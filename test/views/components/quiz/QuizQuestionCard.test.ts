@@ -1,5 +1,5 @@
 import { mount, type VueWrapper } from '@vue/test-utils'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { defineComponent, h } from 'vue'
 import { Difficulty } from '../../../../src/models/enums/Difficulty'
 import QuizQuestionCard from '../../../../src/views/components/quiz/QuizQuestionCard.vue'
@@ -84,14 +84,12 @@ const QuizProgressCircleStub = defineComponent({
 describe('QuizQuestionCard', () => {
   let wrappers: VueWrapper[] = []
 
-  beforeEach(() => {
-    wrappers = []
-  })
-
   afterEach(() => {
     for (const wrapper of wrappers) {
       wrapper.unmount()
     }
+
+    wrappers = []
   })
 
   const mountComponent = (props = {}, slots = {}) => {
@@ -162,20 +160,15 @@ describe('QuizQuestionCard', () => {
   })
 
   describe('Difficulty styling', () => {
-    it.each([
-      { difficulty: Difficulty.EASY, expectedColor: 'green' },
-      { difficulty: Difficulty.MEDIUM, expectedColor: 'yellow' },
-      { difficulty: Difficulty.HARD, expectedColor: 'red' },
-    ])(
-      'uses the correct colour for $difficulty difficulty',
-      ({ difficulty, expectedColor }) => {
-        // Arrange
-        const wrapper = mountComponent({ difficulty })
+    it('passes the difficulty color to the chip', () => {
+      // Arrange
+      const wrapper = mountComponent({
+        difficulty: Difficulty.MEDIUM,
+      })
 
-        // Assert
-        expect(wrapper.findComponent(VChipStub).props('color')).toBe(expectedColor)
-      },
-    )
+      // Assert
+      expect(wrapper.findComponent(VChipStub).props('color')).toBe('yellow')
+    })
   })
 
   describe('Progress indicators', () => {
@@ -208,7 +201,10 @@ describe('QuizQuestionCard', () => {
       'renders progress components when $scenario',
       ({ questionNumber, totalQuestions, shouldRender }) => {
         // Arrange
-        const wrapper = mountComponent({ questionNumber, totalQuestions })
+        const wrapper = mountComponent({
+          questionNumber,
+          totalQuestions,
+        })
 
         // Assert
         expect(wrapper.find('.quiz-progress-bar').exists()).toBe(shouldRender)

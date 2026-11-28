@@ -271,7 +271,7 @@ describe('useQuizQuestion', () => {
         .mockResolvedValueOnce({ correct: false })
         .mockRejectedValueOnce(error)
 
-      vi.spyOn(console, 'error').mockImplementation(() => {})
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
 
       const { result } = mountComposable(defaultOptions, checkAnswer)
 

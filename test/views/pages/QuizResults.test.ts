@@ -1,5 +1,5 @@
 import { mount, type VueWrapper } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, h, ref } from 'vue'
 import QuizResults from '../../../src/views/pages/QuizResults.vue'
 
@@ -9,8 +9,8 @@ const correctAnswers = ref(7)
 const incorrectAnswers = ref(3)
 const scorePercentage = ref(70)
 
-vi.mock('@/composables/useQuizResult', () => ({
-  useQuizResults: () => ({
+vi.mock('../../../src/composables/useQuizResult', () => ({
+  useQuizResult: () => ({
     totalQuestions,
     correctAnswers,
     incorrectAnswers,
@@ -88,74 +88,54 @@ describe('QuizResults', () => {
     })
   })
 
-  it('matches snapshot', () => {
-    // Act
-    const result = wrapper.html()
+  afterEach(() => {
+    wrapper.unmount()
+  })
 
+  it('matches the snapshot', () => {
     // Assert
-    expect(result).toMatchSnapshot()
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   describe('Rendering', () => {
-    it('renders quiz results title', () => {
-      // Act
-      const result = wrapper.text()
-
+    it('renders the quiz results title', () => {
       // Assert
-      expect(result).toContain('Quiz Results')
+      expect(wrapper.text()).toContain('Quiz Results')
     })
 
-    it('renders final score percentage', () => {
-      // Act
-      const result = wrapper.text()
-
+    it('renders the final score percentage', () => {
       // Assert
-      expect(result).toContain('70%')
+      expect(wrapper.text()).toContain('70%')
     })
 
-    it('renders total number of questions', () => {
-      // Act
-      const result = wrapper.text()
-
+    it('renders the total number of questions', () => {
       // Assert
-      expect(result).toContain('Total')
-      expect(result).toContain('10')
+      expect(wrapper.text()).toContain('Total')
+      expect(wrapper.text()).toContain('10')
     })
 
-    it('renders number of correct answers', () => {
-      // Act
-      const result = wrapper.text()
-
+    it('renders the number of correct answers', () => {
       // Assert
-      expect(result).toContain('Correct')
-      expect(result).toContain('7')
+      expect(wrapper.text()).toContain('Correct')
+      expect(wrapper.text()).toContain('7')
     })
 
-    it('renders number of incorrect answers', () => {
-      // Act
-      const result = wrapper.text()
-
+    it('renders the number of incorrect answers', () => {
       // Assert
-      expect(result).toContain('Incorrect')
-      expect(result).toContain('3')
+      expect(wrapper.text()).toContain('Incorrect')
+      expect(wrapper.text()).toContain('3')
     })
 
-    it('renders play again button', () => {
-      // Act
-      const result = wrapper.text()
-
+    it('renders the play again button', () => {
       // Assert
-      expect(result).toContain('Play Again')
+      expect(wrapper.text()).toContain('Play Again')
     })
   })
 
   describe('Restart', () => {
-    it('emits restart event when play again button is clicked', async () => {
-      // Arrange
-      const button = wrapper.findComponent(ButtonStub)
-
+    it('emits a restart event when the play again button is clicked', async () => {
       // Act
-      await button.trigger('click')
+      await wrapper.findComponent(ButtonStub).trigger('click')
 
       // Assert
       expect(wrapper.emitted('restart')).toHaveLength(1)

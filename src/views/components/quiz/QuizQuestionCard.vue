@@ -37,8 +37,9 @@
 </template>
 
 <script lang="ts" setup>
+  import type { Difficulty } from '@/models/enums/Difficulty.ts'
   import { computed } from 'vue'
-  import { Difficulty } from '@/models/enums/Difficulty.ts'
+  import { getDifficultyColor } from '@/utils/DifficultyColors.ts'
   import QuizProgressBar from '@/views/components/quiz/QuizProgressBar.vue'
   import QuizProgressCircle from '@/views/components/quiz/QuizProgressCircle.vue'
 
@@ -50,20 +51,5 @@
     totalQuestions?: number
   }>()
 
-  const difficultyColor = computed(() => {
-    switch (props.difficulty) {
-      case Difficulty.EASY: {
-        return 'green'
-      }
-      case Difficulty.MEDIUM: {
-        return 'yellow'
-      }
-      case Difficulty.HARD: {
-        return 'red'
-      }
-      default: {
-        return 'grey'
-      }
-    }
-  })
+  const difficultyColor = computed(() => getDifficultyColor(props.difficulty))
 </script>
